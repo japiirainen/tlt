@@ -26,3 +26,18 @@
 
 (check-same Atom (zerop zero) 't)
 (check-same Atom (zerop 1) 'nil)
+
+; 62
+(claim *
+  (-> Nat Nat
+      Nat))
+
+(define *
+  (λ (n j)
+    (rec-Nat n
+      0
+      (λ (n-1 *n-1)
+        (+ j *n-1)))))
+
+(check-same Nat 10 (* 2 5))
+(check-same Nat 15 (* 3 5))
