@@ -41,3 +41,21 @@
 
 (check-same Nat 10 (* 2 5))
 (check-same Nat 15 (* 3 5))
+
+; 74
+(claim fact
+  (-> Nat Nat))
+
+(define fact
+  (λ (n)
+    (rec-Nat n
+      1
+      (λ (n-1 almost)
+        (* (add1 n-1) almost)))))
+
+
+(check-same Nat (fact 1) 1)
+(check-same Nat (fact 2) 2)
+(check-same Nat (fact 3) 6)
+(check-same Nat (fact 4) 24)
+(check-same Nat (fact 5) 120)
