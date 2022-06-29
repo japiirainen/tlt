@@ -1,3 +1,3 @@
 # tlt
 
-The Little Typer exercises
+My solutions for "The Little Typer" exercises
