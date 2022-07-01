@@ -61,3 +61,43 @@
 
 (check-same (List Nat) (append Nat (:: 1 nil) (:: 2 nil)) (:: 1 (:: 2 nil)))
 (check-same (List Nat) (append Nat (:: 1 nil) (:: 2 (:: 69 nil))) (:: 1 (:: 2 (:: 69 nil))))
+
+; 59
+(claim snoc
+  (Π ((E U))
+    (-> (List E) E
+        (List E))))
+
+(define snoc
+  (λ (E)
+    (λ (xs y)
+      (rec-List xs
+        (:: y nil)
+        (step-append E)))))
+
+(check-same (List Nat) (snoc Nat (:: 1 nil) 69) (:: 1 (:: 69 nil)))
+
+(claim step-reverse
+  (Π ((E U))
+    (-> E (List E) (List E)
+      (List E))))
+
+(define step-reverse
+  (λ (E)
+    (λ (x xs reverse-xs)
+      (snoc E reverse-xs x))))
+
+(claim reverse
+  (Π ((E U))
+    (-> (List E) (List E))))
+
+(define reverse
+  (λ (E)
+    (λ (xs)
+      (rec-List xs
+        (the (List E) nil)
+        (step-reverse E)))))
+
+(check-same (List Nat)
+  (reverse Nat (:: 69 (:: 420 nil)))
+  (:: 420 (:: 69 nil)))
